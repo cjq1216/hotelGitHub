@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div style="background-color:#ccc; z-index:999;width: 1000px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <br />
+                <!--动态模板><-->
+                {% for notice in notices %}
+                <div style="background-color: #FFF;width: 970px;">
+                    <label>{{ notice.title }}</label>
+                    <br /> 
+                    <label>{{ notice.content }}</label>
+                    <div>
+                        <label>发布时间：{{ notice.time }}</label>
+                    </div>
+                </div>
+                <br /> 
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

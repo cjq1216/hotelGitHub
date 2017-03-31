@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>index</title>
+        <link rel='stylesheet' href='/static/stylesheets/style.css' />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/static/stylesheets/bootstrap.min.css">
+
+        <link href="/static/stylesheets/mycss/dashboard.css" rel="stylesheet">
+        <script src="/static/javascripts/jquery-1.11.3.min.js"></script>
+        <script src="/static/javascripts/bootstrap.min.js"></script>
+        <script src="/static/javascripts/docs.min.js"></script>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index">天上人间</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if current_user.is_active %}
+                        <li><a href="#">欢迎您，{{ current_user.name }}</a></li>
+                        <li><a href="/api/logout">注销</a></li>
+                        {% else %}
+                        <li><a href="/user/login">登录</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="navigation" class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        {% if current_user.role == 0 %}
+                        <li><a class="left-bar" href="/user/checkin">入住</a></li>
+                        <li><a class="left-bar" href="/user/checkgroup">查看本团信息</a></li>
+                        {% elif current_user.role == 1 %}
+                        <li><a class="left-bar" href="/user/checkclean">查看清洁请求</a></li>
+                        {% elif current_user.role == 2 %}
+                        <li><a class="left-bar" href="/user/checkmedical">查看医疗请求</a></li>
+                        {% endif %}
+                        {% if current_user.hotel %}
+                        <li><a class="left-bar" href="/user/service">请求</a></li>
+                        {% endif %}
+                        {% if current_user.is_active %}
+                        <li><a class="left-bar" href="/user/notice">公告</a></li>
+                        <li><a class="left-bar" href="/user/changepw">修改密码</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+
+
+             <script type="text/javascript">
+$(document).ready(function(){
+    var this_href = new Array();
+    var select_Bar_href = new Array();
+    this_href = location.href.split('/');
+    var activeBar = $('.left-bar').each(function(){
+        select_Bar_href = this.href.split('/');
+        if(this_href[this_href.length-1] == select_Bar_href[select_Bar_href.length-1]){
+            $(this).parent().addClass("active");
+        }
+    })
+})
+
+            </script>
+    </body>
+</html>

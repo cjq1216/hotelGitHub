@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% if current_user.hotel %}
+    <div id="result">
+        <h2>您的入住信息如下：</h2>
+        <h3>{{ current_user.hotel.block }}栋 {{ current_user.hotel.room }}号</h3>
+        <button type="button" id="checkout" class="btn btn-lg btn-danger">立即退房</button>
+    </div>
+{% else %}
+    <h2 class="error" style="display:none">抱歉，房间已经全部订满了~</h2>
+    <button type="button" id="checkin" class="btn btn-lg btn-success">立即入住</button>
+{% endif %}
+<script>
+$('#checkin').on('click', function() {
+    $.post('/api/check_in', function(e) {
+        $('#result').show()
+        $('#checkin').hide()
+        if (e.error) {
+            $('.error').show()
+        } else {
+            location.reload()
+        }
+    })
+})
+$('#checkout').on('click', function() {
+    $.post('/api/check_out', function(e) {
+        location.reload()
+    })
+})
+</script>
+{% endblock %}

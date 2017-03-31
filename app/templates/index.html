@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <h1 class="page-header">Weclcome</h1>
+                    <h2>欢迎来到天上人间酒店</h2>
+{% endblock %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>index</title>
+        <link rel='stylesheet' href='/static/stylesheets/style.css' />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="/static/stylesheets/bootstrap.min.css">
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="/static/javascripts/bootstrap.min.js"></script>
+        <link href="/static/stylesheets/mycss/dashboard.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index">天上人间</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if current_user.is_active %}
+                        <li><a href="#">欢迎您，{{ current_user.name }}</a></li>
+                        {% else %}
+                        <li><a href="user/login">登录</a></li>
+                        <li><a href="#">注销</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="navigation" class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li><a href="user/checkin">入住</a></li>
+                        <li><a href="user/service">请求</a></li>
+                        <li><a href="user/checkout">退房</a></li>
+                        <li><a href="user/checkgroup">查看本团信息</a></li>
+                        <li><a href="user/checkclean">查看清洁请求</a></li>
+                        <li><a href="user/checkmedical">查看医疗请求</a></li>
+                        <li><a href="user/notice">公告</a></li>
+                        <li><a href="user/chat">聊天</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h1 class="page-header">Weclcome</h1>
+                    <h2>欢迎来到天上人间酒店</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="/static/javascripts/jquery-1.11.3.min.js"></script>
+            <script src="/static/javascripts/bootstrap.min.js"></script>
+            <script src="/static/javascripts/docs.min.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>房间号</th>
+                <th>请求内容</th>
+                <th>客人名字</th>
+                <th>选项</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.block }}-{{ hotel.room }}</td>
+                <td>{{ hotel.content }}</td>
+                <td>{{ hotel.name }}</td>
+                <td>
+                    {% if hotel.finish == 0 %}
+                    <button type="button" class="btn btn-sm btn-danger" onclick="location.href='/api/finish_service/{{hotel.id}}'">待完成</button>
+                    {% elif hotel.finish == 1 %}
+                    <button type="button" disabled class="btn btn-sm btn-warning">待验收</button>
+                    {% elif hotel.finish == 2 %}
+                    <button type="button" disabled class="btn btn-sm btn-default">已完成</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

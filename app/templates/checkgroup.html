@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% block body %}
+<button type="button" id="adder" class="btn btn btn-info">录入团员信息</button>
+<div class="table-responsive">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul class=flashes>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+          {% endwith %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>身份证</th>
+                <th>手机号</th>
+                <th>房间号</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.id_card }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.hotel.block }}-{{ user.hotel.room }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div style="display:none;top:200px;left:300px;position:absolute;width:600px; height:500px; background-color:#ccc; z-index:999" id="out">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="padding-top:30px;">
+                <form class="form-signin" role="form" action="/api/regist2", method="post">
+                    <input style="width:570px" type="text" class="form-control" name="id_card" placeholder="请输入身份证号" required autofocus>
+                    <input style="width:570px" type="text" class="form-control" name="name" placeholder="请输入姓名" required>
+                    <input style="width:570px" type="text" class="form-control" id="phone" name="phone" placeholder="请输入电话号码" required autofocus>
+                    <input style="width:570px" type="text" class="form-control" id="password" name="password" placeholder="请输入密码" required autofocus>
+                    <input style="width:570px" type="text" class="form-control" id="password1" name="confirm_password" placeholder="请再次输入密码" required autofocus>
+                    <br />
+                    <button style="width:100px" class="btn btn-lg btn-primary btn-block" type="submit" id="luru">录入</button>
+                    <button style="width:100px" class="btn btn-lg btn-primary btn-block" type="button" id="back">返回</button>
+                </form>
+            </div>
+            <div class="col-xs-12" style="padding-top:30px;">
+                <form class="form-signin" role="form" action="/api/enter", method="post" enctype="multipart/form-data" >
+                    <label for="fileName">请上传表格
+                        <input  type="file" id="fileName" name="fileName" required>
+                    </label>
+                    <button style="width:100px" class="btn btn-lg btn-primary btn-block" type="submit" id="luru2">录入</button>
+                </form>
+                <a href="/static/template.csv">下载模板</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$("#back").click(function(){
+    $("#out").hide();
+    return false;
+})
+$("#adder").click(function(){
+    $("#out").show();
+})
+</script>
+{% endblock %}

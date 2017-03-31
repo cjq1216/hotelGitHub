@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block body %}
+<form class="form-signin" role="form", action="/api/changepw", method="post">
+    <h2 class="form-signin-heading">修改密码</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <input type="text" class="form-control" name="old_password" placeholder="请输入原始密码" required autofocus>
+    <input type="password" class="form-control" id="password" name="new_password" placeholder="请输入新密码" required>
+    <input type="password" class="form-control" id="password2" name="password" placeholder="请输入新密码" required>
+    <br />
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="confirm">确认修改</button>
+</form>
+<script>
+$('#confirm').on('click', function() {
+    if ( $('password').val() != $('password2').val() ) {
+        alert('两次输入密码不一致！请重新输入！');
+        return false;
+    }
+})
+</script>
+{% endblock %}

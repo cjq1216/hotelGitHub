@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="row">
+        <label class="radio gender-radio">
+            <input type="radio" name="req" id="optionsRadios1" value="1" checked="">
+            <h4>客房服务</h4>
+        </label>
+        <label class="radio gender-radio">
+            <input type="radio" name="req" id="optionsRadios2" value="2">
+            <h4>医疗服务</h4>
+        </label>
+        <input type="text" class="form-control" id="content" placeholder="请输入请求内容" required>
+        <br />
+        <button type="button" id="publish" class="btn btn-lg btn-success">发布</button>
+    </div>
+    <script>
+$('#publish').on('click', function() {
+    type = $('input[name="req"]:checked').val();
+    content = $('#content').val();
+    $.post('/api/service',{type, content}, function(e) {
+        alert('发布成功！请耐心等候')
+    })
+})
+    </script>
+{% endblock %}
