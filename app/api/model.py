@@ -1,22 +1,16 @@
 # coding=utf-8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import UserMixin
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 from flask import Flask
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://%s:%s@%s/%s" % ('root', '123456', '127.0.0.1', 'hotel')
-db = SQLAlchemy(app)
 import datetime
 
-#db = SQLAlchemy()
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:123456@127.0.0.1/hotel"
+db = SQLAlchemy(app)
 
 class User(db.Model, UserMixin):
 
-    __tablenanme__= 'user'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(15))
     id_card = db.Column(db.String(20), unique=True)
@@ -40,7 +34,7 @@ class User(db.Model, UserMixin):
 
 class Hotel(db.Model):
 
-    __tablenanme__= 'hotel'
+    __tablename__ = 'hotel'
     id = db.Column(db.Integer, primary_key=True)
     block = db.Column(db.String(20))
     room = db.Column(db.Integer)
@@ -58,7 +52,7 @@ class Hotel(db.Model):
 
 class Service(db.Model):
 
-    __tablenanme__= 'service'
+    __tablename__ = 'service'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(120))
     type = db.Column(db.Integer)
@@ -77,11 +71,11 @@ class Service(db.Model):
 
 class Notice(db.Model):
 
-    __tablenanme__= 'notice'
+    __tablename__ = 'notice'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30))
     content = db.Column(db.String(320))
-    time = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    time = db.Column(db.DateTime, default=datetime.datetime.now)
     type = db.Column(db.Integer)
 
     def __str__(self):
@@ -94,7 +88,7 @@ class Notice(db.Model):
 
 class Config(db.Model):
 
-    __tablenanme__= 'config'
+    __tablename__ = 'config'
     id = db.Column(db.Integer, primary_key=True)
     key = db.Column(db.String(30))
     value = db.Column(db.Integer)

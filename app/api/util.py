@@ -80,7 +80,7 @@ def checkMessageCode(phone, code):
         'code':str(code)
     }
     r = requests.post('https://api.netease.im/sms/verifycode.action',headers=headers,data=params).json()
-    print (r)
+    print(r)
     if r['code'] == 200:
         return True
     else:
